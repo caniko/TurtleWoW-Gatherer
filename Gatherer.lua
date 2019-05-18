@@ -1117,7 +1117,7 @@ end
 local debug_first_icon = true;
 function GatherMain_Draw()
 	local lastUnused = 1000;
-	local maxNotes = 1600;
+	local maxNotes = 1599;
 	local gatherName, gatherData;
 	local SETTINGS = Gatherer_Settings;
 
