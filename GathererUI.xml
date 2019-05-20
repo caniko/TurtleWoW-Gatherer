@@ -144,47 +144,6 @@
 		</HighlightTexture>
 	</Button>
 
-	<!-- Minimap Icon frame -->
-	<Frame name="GathererUI_IconFrame" enableMouse="true" hidden="true" parent="Minimap" frameStrata="MEDIUM">
-		<Size>
-			<AbsDimension x="33" y="33"/>
-		</Size>
-		<Layers>
-			<Layer level="ARTWORK">
-				<Texture name="GathererUI_IconTexture" file="Interface\Addons\Gatherer\Skin\GatherOrb">
-					<Size>
-						<AbsDimension x="17" y="17"/>
-					</Size>
-					<Anchors>
-						<Anchor point="TOPLEFT">
-							<Offset>
-								<AbsDimension x="7" y="-6"/>
-							</Offset>
-						</Anchor>
-					</Anchors>
-				</Texture>
-			</Layer>
-			<Layer level="OVERLAY">
-				<Texture file="Interface\Minimap\MiniMap-TrackingBorder">
-					<Size>
-						<AbsDimension x="52" y="52"/>
-					</Size>
-					<Anchors>
-						<Anchor point="TOPLEFT"/>
-					</Anchors>
-				</Texture>
-			</Layer>
-		</Layers>
-		<Scripts>
-			<OnEnter>
-				GathererUI_IconFrameOnEnter();
-			</OnEnter>
-			<OnMouseUp>
-				GathererUI_IconFrameOnClick();
-			</OnMouseUp>
-		</Scripts>
-	</Frame>
-
 	<!-- Quickmenu button template -->
 	<Button name="GathererUI_PopupButtonTemplate" virtual="true">
 		<Size>
@@ -1649,40 +1608,6 @@
 			</OnLoad>
 		</Scripts>
 		<Frames>
-			<CheckButton name="GathererUI_CheckShowOnMouse" inherits="OptionsCheckButtonTemplate">
-				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
-						<Offset>
-							<AbsDimension x="5" y="-5"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<Scripts>
-					<OnLoad>
-						getglobal(this:GetName().."Text"):SetText(GATHERER_TEXT_SHOWONMOUSE);
-						this.tooltipText = GATHERER_SHOWONMOUSE_TIP;
-					</OnLoad>
-					<OnClick>
-						if (this:GetChecked()) then
-							Gatherer_Settings.ShowOnMouse = 1;
-							Gatherer_Settings.ShowOnClick = 0;
-							GathererUI_CheckShowOnClick:SetChecked(Gatherer_Settings.ShowOnClick);
-						else
-							Gatherer_Settings.ShowOnMouse = 0;
-							Gatherer_Settings.ShowOnClick = 1;
-							GathererUI_CheckShowOnClick:SetChecked(Gatherer_Settings.ShowOnClick);
-						end
-					</OnClick>
-					<OnEnter>
-						GameTooltip:SetOwner(GathererUI_DialogFrame, "ANCHOR_TOPLEFT");
-						GameTooltip:SetText(this.tooltipText);
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</CheckButton>
 			<CheckButton name="GathererUI_CheckHideOnMouse" inherits="OptionsCheckButtonTemplate">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
@@ -1781,7 +1706,6 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-
 			<CheckButton name="GathererUI_CheckShowOnClick" inherits="OptionsCheckButtonTemplate">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="GathererUI_CheckShowOnMouse" relativePoint="BOTTOMLEFT">
@@ -1816,121 +1740,6 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-
-			<CheckButton name="GathererUI_CheckHideIcon" inherits="OptionsCheckButtonTemplate">
-				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="GathererUI_CheckShowOnClick" relativePoint="BOTTOMLEFT">
-						<Offset>
-							<AbsDimension x="0" y="5"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<Scripts>
-					<OnLoad>
-						getglobal(this:GetName().."Text"):SetText(GATHERER_TEXT_HIDEICON);
-						this.tooltipText = GATHERER_HIDEICON_TIP;
-					</OnLoad>
-					<OnClick>
-						if (this:GetChecked()) then
-							Gatherer_Settings.HideIcon = tonumber("1");
-							GathererUI_IconFrame:Hide();
-						else
-							Gatherer_Settings.HideIcon = tonumber("0");
-							GathererUI_IconFrame:Show();
-						end
-					</OnClick>
-					<OnEnter>
-						GameTooltip:SetOwner(GathererUI_DialogFrame, "ANCHOR_TOPLEFT");
-						GameTooltip:SetText(this.tooltipText);
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</CheckButton>
-
-			<Slider name="GathererUI_SliderPosition" inherits="OptionsSliderTemplate">
-				<Size>
-					<AbsDimension x="360" y="17"/>
-				</Size>
-				<Anchors>
-					<Anchor point="BOTTOMLEFT" relativeTo="GathererUI_CheckHideIcon" relativePoint="BOTTOMLEFT">
-						<Offset>
-							<AbsDimension x="20" y="-22"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<Scripts>
-					<OnLoad>
-						getglobal(this:GetName().."Text"):SetText(GATHERER_TEXT_POSITION);
-						getglobal(this:GetName().."High"):SetText();
-						getglobal(this:GetName().."Low"):SetText();
-						this:SetMinMaxValues(0, 360);
-						this:SetValueStep(1);
-						this.tooltipText = GATHERER_TEXT_POSITION_TIP;
-					</OnLoad>
-					<OnShow>
-						if (Gatherer_Settings.Position) then
-							this:SetValue(Gatherer_Settings.Position);
-						end
-					</OnShow>
-					<OnValueChanged>
-						Gatherer_Settings.Position = this:GetValue();
-						getglobal(this:GetName().."Text"):SetText(GATHERER_TEXT_POSITION.." : "..this:GetValue().."\194\176");
-						GathererUI_IconFrame:SetPoint("TOPLEFT", "Minimap", "TOPLEFT", 52 - (GathererUI_SliderRadius:GetValue() * cos(this:GetValue())), (GathererUI_SliderRadius:GetValue() * sin(this:GetValue())) - 52);
-					</OnValueChanged>
-					<OnEnter>
-						GameTooltip:SetOwner(GathererUI_DialogFrame, "ANCHOR_TOPLEFT");
-						GameTooltip:SetText(this.tooltipText);
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Slider>
-			<Slider name="GathererUI_SliderRadius" inherits="OptionsSliderTemplate">
-				<Size>
-					<AbsDimension x="360" y="17"/>
-				</Size>
-				<Anchors>
-					<Anchor point="BOTTOMLEFT" relativeTo="GathererUI_SliderPosition" relativePoint="BOTTOMLEFT">
-						<Offset>
-							<AbsDimension x="0" y="-40"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<Scripts>
-					<OnLoad>
-						getglobal(this:GetName().."Text"):SetText(GATHERER_TEXT_RADIUS);
-						getglobal(this:GetName().."High"):SetText();
-						getglobal(this:GetName().."Low"):SetText();
-						this:SetMinMaxValues(75, 130);
-						this:SetValueStep(1);
-						this.tooltipText = GATHERER_TEXT_RADIUS_TIP;
-					</OnLoad>
-					<OnShow>
-						if (Gatherer_Settings.Radius) then
-							this:SetValue(Gatherer_Settings.Radius);
-						end
-					</OnShow>
-					<OnValueChanged>
-						Gatherer_Settings.Radius = this:GetValue();
-						getglobal(this:GetName().."Text"):SetText(GATHERER_TEXT_RADIUS.." : "..this:GetValue().."\194\176");
-						GathererUI_IconFrame:SetPoint("TOPLEFT", "Minimap", "TOPLEFT", 52 - (this:GetValue() * cos(GathererUI_SliderPosition:GetValue())), (this:GetValue() * sin(GathererUI_SliderPosition:GetValue())) - 52);
-					</OnValueChanged>
-					<OnEnter>
-						GameTooltip:SetOwner(GathererUI_DialogFrame, "ANCHOR_TOPLEFT");
-						GameTooltip:SetText(this.tooltipText);
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Slider>
-
 		</Frames>
 	</Frame>
 

@@ -10,6 +10,13 @@
 ## SavedVariables: GatherItems, Gatherer_SavedSettings_AccountWide
 ## SavedVariablesPerCharacter: Gatherer_SavedSettings_PerCharacter
 ## OptionalDeps: myAddOns
+## Dependencies:
+libs\LibStub\LibStub.lua
+libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
+libs\CallbackHandler-1.0\CallbackHandler-1.0.xml
+libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
+libs\LibDBIcon\LibDBIcon-1.0.lua
+
 constants.lua
 string.lua
 math.lua
@@ -17,6 +24,8 @@ table.lua
 notifications.lua
 database.lua
 session.lua
+
+GathererIcon.lua
 
 Gatherer.xml
 GathererUI.xml

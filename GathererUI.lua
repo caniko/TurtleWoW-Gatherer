@@ -173,13 +173,10 @@ function GathererUI_InitializeOptions()
 	GathererHelp.currentPage = GathererHelp.currentPage or tonumber("1");
 
 	-- UI related
-	GathererUI_CheckShowOnMouse:SetChecked(SETTINGS.ShowOnMouse);
 	GathererUI_CheckHideOnMouse:SetChecked(SETTINGS.HideOnMouse);
 	GathererUI_CheckShowOnClick:SetChecked(SETTINGS.ShowOnClick);
 	GathererUI_CheckHideOnClick:SetChecked(SETTINGS.HideOnClick);
-	GathererUI_CheckHideIcon:SetChecked(SETTINGS.HideIcon);
 	GathererUI_CheckHideOnButton:SetChecked(SETTINGS.HideOnButton);
-	GathererUI_IconFrame:SetPoint("TOPLEFT", "Minimap", "TOPLEFT", 52 - (SETTINGS.Radius * cos(SETTINGS.Position)), (SETTINGS.Radius * sin(SETTINGS.Position)) - 52);
 
 	-- Gatherer related
 	GathererUI_CheckNoMinIcon:SetChecked(SETTINGS.NoIconOnMinDist);
@@ -198,15 +195,6 @@ end
 
 -- ******************************************************************
 function GathererUI_InitializeMenu()
-
-	GathererUI_IconFrame.haveAbilities = true;
-
-	if ( Gatherer_Settings and Gatherer_Settings.HideIcon and Gatherer_Settings.HideIcon == 1 ) then
-		GathererUI_IconFrame:Hide();
-	else
-		GathererUI_IconFrame:Show();
-	end
-
 
 	-- Set the text for the buttons while keeping track of how many
 	-- buttons we actually need.
@@ -305,7 +293,7 @@ end
 function GathererUI_OnUpdate(dummy)
 	-- Check to see if the mouse is still over the menu or the icon.
 	if (Gatherer_Settings.HideOnMouse == 1 and GathererUI_Popup:IsVisible()) then
-		if (not MouseIsOver(GathererUI_Popup) and not MouseIsOver(GathererUI_IconFrame)) then
+		if (not MouseIsOver(GathererUI_Popup) and not MouseIsOver(GathererIcon.Frame)) then
 			-- If not, hide the menu.
 			GathererUI_Hide();
 		end
@@ -313,19 +301,14 @@ function GathererUI_OnUpdate(dummy)
 end
 
 -- ******************************************************************
-function GathererUI_IconFrameOnEnter()
-	-- Set the anchor point of the menu so it shows up next to the icon.
-	GathererUI_Popup:ClearAllPoints();
-	GathererUI_Popup:SetPoint("TOPRIGHT", "GathererUI_IconFrame", "TOPLEFT");
-
-	-- Show the menu.
-	if (Gatherer_Settings.ShowOnMouse == 1) then
-		GathererUI_Show();
-	end
-end
 
 -- ******************************************************************
-function GathererUI_IconFrameOnClick()
+function GathererUI_IconOnClick()
+
+	-- Set the anchor point of the menu so it shows up next to the icon.
+	GathererUI_Popup:ClearAllPoints();
+	GathererUI_Popup:SetPoint("TOPRIGHT", GathererIcon.Frame, "TOPLEFT");
+
 	if (GathererUI_Popup:IsVisible()) then
 		if (Gatherer_Settings.HideOnClick == 1) then
 			GathererUI_Hide();
