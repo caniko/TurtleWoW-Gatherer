@@ -177,7 +177,7 @@ function Gatherer_AddonMessageEvent(prefix, message, type)
         return
 	end
 	local broadcast_media = Gatherer_EBroadcastMedia[strlower(type)];
-	Gatherer_ReceiveBroadcast(broadcast_media, message);
+--	Gatherer_ReceiveBroadcast(broadcast_media, message);
 end
 
 
