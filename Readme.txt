@@ -1,3 +1,13 @@
+This is a fork of the https://github.com/Rumchiller/EM_Gatherer
+
+It has the node synchronization via guild chat feature disabled because it is bugged. If you are in a guild then, in a few minutes after you log in, you will have a lot of strange, inexistant nodes in your Gatherer database, like Floating Wreckage in the middle of Badlands, Un'Goro Soil in Stormwind, Plaguebloom in Darnassus and so on.
+This bug is inherited from this addon - https://github.com/jsb/Gatherer - the bug was reported years ago here - https://github.com/jsb/Gatherer/issues/18
+
+Hopefully the bug will be fixed one day - but until that happens, you can use this addon that will not mess your Gatherer database.
+
+
+This is the old Readme:
+
 This is gatherer_p2p 1.1.1
 
 Its crucial feature is node synchronization via guild chat.
