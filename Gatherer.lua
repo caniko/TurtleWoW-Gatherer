@@ -838,31 +838,31 @@ function Gatherer_TimeCheck(timeDelta)
 				if sent then
 					skip_cycle(bm)
 				else
-					Gatherer_CycleCount = Gatherer_CycleCount + cycle_increment
-					cycle_increment = 0
-					send_node(bm, broadcast_args)
-					Gatherer_mark_sent(bm, continent, zone, gather_name, node_index)
-					local sent_count = Gatherer_sent_count(bm)
-					Gatherer_ChatNotify(
-						format([[
-							Cycle #%d, skipped for %s: %d
-								sent to %s: %d/%d nodes, chance of skip: %.2f%%]],
-							Gatherer_CycleCount, bm_name, skipped_cycles_count[bm],
-							bm_name, sent_count, GatherItems_node_count, sent_count *100/GatherItems_node_count
-						),
-						Gatherer_ENotificationType.debug
-					)
-					skipped_cycles_count[bm] = 0
-					if sent_count == GatherItems_node_count then
-						Gatherer_reset_sent_mark(bm)
-						Gatherer_ChatNotify(
-							format([[
-								Sent whole database to %s during current session. Congratulations!!!
-									All sent marks were reset.]],
-								bm_name
-							)
-						)
-					end
+--					Gatherer_CycleCount = Gatherer_CycleCount + cycle_increment
+--					cycle_increment = 0
+--					send_node(bm, broadcast_args)
+--					Gatherer_mark_sent(bm, continent, zone, gather_name, node_index)
+--					local sent_count = Gatherer_sent_count(bm)
+--					Gatherer_ChatNotify(
+--						format([[
+--							Cycle #%d, skipped for %s: %d
+--								sent to %s: %d/%d nodes, chance of skip: %.2f%%]],
+--							Gatherer_CycleCount, bm_name, skipped_cycles_count[bm],
+--							bm_name, sent_count, GatherItems_node_count, sent_count *100/GatherItems_node_count
+--						),
+--						Gatherer_ENotificationType.debug
+--					)
+--					skipped_cycles_count[bm] = 0
+--					if sent_count == GatherItems_node_count then
+--						Gatherer_reset_sent_mark(bm)
+--						Gatherer_ChatNotify(
+--							format([[
+--								Sent whole database to %s during current session. Congratulations!!!
+--									All sent marks were reset.]],
+--								bm_name
+--							)
+--						)
+--					end
 				end
 			end
 		end
@@ -1844,7 +1844,7 @@ function Gatherer_AddGatherHere(gather, gatherType, gatherIcon, gatherEventType)
 	for bm, bm_name  in ipairs(Gatherer_EBroadcastMedia) do
 		if Gatherer_Settings[bm_name] then
 			-- Broadcast to the current media
-			Gatherer_BroadcastGather(bm, gather, gatherType, gatherContinent, gatherZone, gatherX, gatherY, iconIndex, gatherEventType)
+			-- Gatherer_BroadcastGather(bm, gather, gatherType, gatherContinent, gatherZone, gatherX, gatherY, iconIndex, gatherEventType)
 			Gatherer_mark_sent(bm, gatherContinent, gatherZone, gather, inserted_index)
 		end
 	end
