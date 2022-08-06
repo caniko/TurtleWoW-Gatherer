@@ -1,7 +1,7 @@
 -- Gatherer
 -- Written by Chandora
 
-GATHERER_VERSION="1.1.1";
+GATHERER_VERSION="1.1.2";
 
 --
 -- Look, seriously a full half of this code is from MapNotes.
@@ -1530,6 +1530,7 @@ end
 function Gatherer_AbsCoord(continent, zone, x, y)
 	if ((continent == 0) or (zone == 0)) then return x, y; end
 	local r = GatherRegionData[continent][zone];
+	if (r == nil) then return 0,0; end -- fix
 	local absX = x * r.scale + r.xoffset;
 	local absY = y * r.scale + r.yoffset;
 	return absX, absY;

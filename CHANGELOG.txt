@@ -1,75 +1,42 @@
-This is a fork of the https://github.com/Rumchiller/EM_Gatherer
-
-It has the node synchronization via guild chat feature disabled because it is bugged. If you are in a guild then, in a few minutes after you log in, you will have a lot of strange, inexistant nodes in your Gatherer database, like Floating Wreckage in the middle of Badlands, Un'Goro Soil in Stormwind, Plaguebloom in Darnassus and so on.
-This bug is inherited from this addon - https://github.com/jsb/Gatherer - the bug was reported years ago here - https://github.com/jsb/Gatherer/issues/18
-
-On the Rumchiller/EM_Gatherer addon repository is not even possible to make a bug report.
-
-Hopefully the bug will be fixed one day - but until that happens, you can use this addon that will not mess your Gatherer database.
-
-
-This is the old Readme:
-
-This is gatherer_p2p 1.1.1
-
-Its crucial feature is node synchronization via guild chat.
-
-It is based on:
-* the latest 1.12.1 compatible build of the "Gatherer" addon, I've found:
-  http://gathereraddon.com/dl/Gatherer/gatherer-2.99.0.0284.zip
-* patch of the addon with node broadcasting on gathering:
-  https://github.com/jsb/Gatherer
-
-Major version is nailed to "1" for the 1.12.1 client compatible versions.
-In other ways versioning complies with semver.
-
-Versions are compatible on the message level along one decade of the minor version.
-E.g. 1.0.x and 1.9.x are compatible, while 1.0.x and 1.10.x are not.
-
-Note for RuWow addon users:
-The addon was working correctly with disabled translation of the combat log, interface and spells.
-To configure it type `/gather locale enGB`. That'll override `ruRU` locale value inevitably set by RuWow.
-
-Gatherer_p2p release notes:
-(if first word isn't a verb, + stands for "added", - - "removed", * - "changed", / - "fixed")
-
-
+* 1.1.2 - hotfix
+	+ Gatherer.lua -> Gatherer_AbsCoord, handle r=nill cases
+	
 * 1.1.1 - hotfix
-  + sent marks reset after sending the whole database.
-    It was crucial for tiny databases.
+	+ sent marks reset after sending the whole database.
+		It was crucial for tiny databases.
 
 * 1.1.0
-  + Duplicate exclusion after random selection.
-    Now every broadcasting, gathering and receiving marks a node as sent.
-    Sent nodes won't be resent until the next session (addon reloading).
-    The purpose is to send out the database as fast as possible.
-    https://github.com/theoden-dd/gatherer_p2p/issues/7
-  * _Initial_ delay was set to 4 seconds. Due to sent miss throttling, its limit tends to 15 seconds
-    That's even more, than previous 10 seconds.
-  + Raid/party broadcasting.
-    https://github.com/theoden-dd/gatherer_p2p/issues/8
-  * Option "p2p" became "guild" and toggles broadcasting to guild.
-  + Option "raid" toggles broadcasting to raid/party and defaults to off.
-  / Incendicite Ore will now be ignored and will not produce an error.
+	+ Duplicate exclusion after random selection.
+		Now every broadcasting, gathering and receiving marks a node as sent.
+		Sent nodes won't be resent until the next session (addon reloading).
+		The purpose is to send out the database as fast as possible.
+		https://github.com/theoden-dd/gatherer_p2p/issues/7
+	* _Initial_ delay was set to 4 seconds. Due to sent miss throttling, its limit tends to 15 seconds
+		That's even more, than previous 10 seconds.
+	+ Raid/party broadcasting.
+		https://github.com/theoden-dd/gatherer_p2p/issues/8
+	* Option "p2p" became "guild" and toggles broadcasting to guild.
+	+ Option "raid" toggles broadcasting to raid/party and defaults to off.
+	/ Incendicite Ore will now be ignored and will not produce an error.
 
 * 1.0.2 - hotfix
-  / bug with random selection from empty database
-    https://github.com/theoden-dd/gatherer_p2p/issues/14
+	/ bug with random selection from empty database
+		https://github.com/theoden-dd/gatherer_p2p/issues/14
 
 * 1.0.1 - hotfix
-  / RuWow addon incompatibility.
-    https://github.com/theoden-dd/gatherer_p2p/issues/5
-  + `locale` option to override locale. This is a hack to overcome RuWow's messing with the locale.
+	/ RuWow addon incompatibility.
+		https://github.com/theoden-dd/gatherer_p2p/issues/5
+	+ `locale` option to override locale. This is a hack to overcome RuWow's messing with the locale.
 
 * 1.0.0 (relative to 2.99.2)
-  + Broadcasting of a random node via guild chat every 10 seconds.
-    https://github.com/theoden-dd/gatherer_p2p/issues/3
-  * Broke message format: changed iconName to iconIndex. (7-th message peace at that time)
-    https://github.com/theoden-dd/gatherer_p2p/issues/4
-  + Included square map support via a pull request. Thanks to @laytya for contributing.
-    https://github.com/theoden-dd/gatherer_p2p/pull/2
-  + `p2p` option to toggle broadcasting.
-  + `p2p` and `debug` options to the usage notes with current values.
+	+ Broadcasting of a random node via guild chat every 10 seconds.
+		https://github.com/theoden-dd/gatherer_p2p/issues/3
+	* Broke message format: changed iconName to iconIndex. (7-th message peace at that time)
+		https://github.com/theoden-dd/gatherer_p2p/issues/4
+	+ Included square map support via a pull request. Thanks to @laytya for contributing.
+		https://github.com/theoden-dd/gatherer_p2p/pull/2
+	+ `p2p` option to toggle broadcasting.
+	+ `p2p` and `debug` options to the usage notes with current values.
 
 
 The text below is from the parent addon readme.
@@ -139,9 +106,9 @@ GathererUI - bug fix and ruRU localization
 
 # New:
 - Added records for Fishing in nodes: works slightly differently from usual recording.
-  * First recording method, uses Trunks and Bloated fish to automatically record where you stand (type assigned to Floating wreck, even though it's not always true).
-  * Second record method, uses the node tooltip, in order to do that, you must autoloot (shift click the bobber) AND move slightly the cursor to make the node tooltip appear.
-  Fishing categories are: School (all type of school node), Floating Wreckage (include Oil Spill) and Elemental water.
+	* First recording method, uses Trunks and Bloated fish to automatically record where you stand (type assigned to Floating wreck, even though it's not always true).
+	* Second record method, uses the node tooltip, in order to do that, you must autoloot (shift click the bobber) AND move slightly the cursor to make the node tooltip appear.
+	Fishing categories are: School (all type of school node), Floating Wreckage (include Oil Spill) and Elemental water.
 
 2.2.1:
 ======
@@ -156,7 +123,7 @@ GathererUI - bug fix and ruRU localization
 
 # New:
 - Added iconshade theme, icons are displayed all the time, but shade under min icon distance (40% by
-  default if shade under min distance is set at 100).
+	default if shade under min distance is set at 100).
 
 2.2.0:
 ======
@@ -254,8 +221,8 @@ GathererUI - bug fix and ruRU localization
 ======
 # Bug Fixes:
 - brought back the maximum number of items displayable on the world map to 300 (600 was causing disconnect in some cases) as a temporary fix until the world map display can be done another, meanwhile use the filters provided in the configuration dialog to see what you're interested in.
-  Note that this does not resolve the basic issue (the delay itself isn't in Gatherer but in the game UI engine) but seems to make the problem not occur. Also it almost never seems to occur when you come back to the map your character is in before exiting the world map.
-- a side effect of the new format will fix wandering icons on the minimap for users importing data  (could previouly be fixed by doing a zone match with same source and destination or running the RecalcNotes function which was removed since it now serves no purpose without minimap coordinates in the stored data).
+	Note that this does not resolve the basic issue (the delay itself isn't in Gatherer but in the game UI engine) but seems to make the problem not occur. Also it almost never seems to occur when you come back to the map your character is in before exiting the world map.
+- a side effect of the new format will fix wandering icons on the minimap for users importing data	(could previouly be fixed by doing a zone match with same source and destination or running the RecalcNotes function which was removed since it now serves no purpose without minimap coordinates in the stored data).
 - caught a few memory leaks (still plenty around though).
 
 # Features:
@@ -269,11 +236,11 @@ GathererUI - bug fix and ruRU localization
 
 * Items
 - New Items:
-  - Un'Goro Power Crystals
-  - Un'Goro Soil
-  - BloodPetal Sprouts
-  - Blood of Heroes
-  - Footlockers (need to unlock them before being able to record them, so this is rogue only strictly speaking)
+	- Un'Goro Power Crystals
+	- Un'Goro Soil
+	- BloodPetal Sprouts
+	- Blood of Heroes
+	- Footlockers (need to unlock them before being able to record them, so this is rogue only strictly speaking)
 - New set of icons for Ores and Un'Goro items (courtesy of Wt, Melina and Iriel).
 - Rich Thorium now has it's own icon (a placeholder really, until someone provides something more appropriate), the change will appear immediately on the world map, change on the minimap will be visible only after using the zone match facility (same origin and destination).
 
@@ -292,17 +259,17 @@ GathererUI - bug fix and ruRU localization
 ===========
 * Bug Fixes:
 - Localization:
-  # german: error in localization.lua
+	# german: error in localization.lua
 - Map should show correctly in battlegrounds now.
 
 2.0.2:
 ===========
 * Bug Fixes:
 - Localization:
-  # english: barrel gathering should now read barrels that have the keyword at the beginning of the gather text
-  # german: firebloom, mountain silversage, clam, rich thorium and small thorium should be fixed, "ooze covered" display problem should be fixed too.
-  # french: zone transition matrix for wow patch 1.5.0 added
-  # french: new french GatherRegionData ordered table
+	# english: barrel gathering should now read barrels that have the keyword at the beginning of the gather text
+	# german: firebloom, mountain silversage, clam, rich thorium and small thorium should be fixed, "ooze covered" display problem should be fixed too.
+	# french: zone transition matrix for wow patch 1.5.0 added
+	# french: new french GatherRegionData ordered table
 - slowdown on using no icon under min distance option should be lessened in gather item heavy environment
 - delay opening world map with a huge number of items should be reasonable now.
 
