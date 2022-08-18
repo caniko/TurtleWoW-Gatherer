@@ -1,5 +1,9 @@
 # Gatherer 1.1.2
 
+## Installation
+
+Clone the repository either using [git](https://git-scm.com/) or download directly from this repository. Make sure that the name of the directory is "Gatherer".
+
 This is a fork of [FrostShock](https://github.com/FrostShock/EM_Gatherer), which is a fork of [Rumchiller](https://github.com/Rumchiller/EM_Gatherer).
 
 ## Turtle WoW bugfix
